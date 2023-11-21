@@ -1,7 +1,7 @@
 import telebot
 
 
-token = 'something'
+token = 'Add token to start bot'
 bot = telebot.TeleBot(token)
 
 
@@ -10,6 +10,7 @@ START_TEXT = ("Приветствуем в нашем боте! В будуще�
 HELP_TEXT = "Напиши 'echo'"
 ECHO_TEXT = "Эхо вернулось!"
 ANOTHER_TEXT = "Ты написал что-то не то, но сервер пашет! Напиши '/help'"
+
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
