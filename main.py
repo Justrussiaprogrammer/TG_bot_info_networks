@@ -7,7 +7,7 @@ bot = telebot.TeleBot(token)
 
 
 START_TEXT = ("Приветствуем в нашем боте, неизвестный! В будущем он сможет возвращать информацию о нейронках,"
-              " но пока он еще растет) Для получения всей информации о боте введи команду /help\n")
+              " но пока он еще растет) Для получения всей информации о боте введи команду /help")
 HELP_TEXT = ("Бот умеет обрабатывать запросы о обучении нейросети и выводить информацию о ней пользователю."
              "Пока что работает только это, для его активации напиши 'echo'")
 ECHO_TEXT = "Эхо вернулось!"
@@ -16,60 +16,54 @@ ANOTHER_TEXT = "Ты написал что-то не то, но сервер п�
 GET_TEXT = "Как тебя называть? пока не робает"
 
 
-name = ''
-age = 0
+FIRST_REQ = 'Ухожу в питон!'
+SECOND_REQ = 'Остаюсь с c++('
+
+
+@bot.message_handler(commands=['start'])
+def my_start(message):
+    bot.send_message(message.from_user.id, START_TEXT)
+
+
+@bot.message_handler(commands=['help'])
+def my_help(message):
+    bot.send_message(message.from_user.id, HELP_TEXT)
+
+
+@bot.message_handler(commands=['get'])
+def my_get(message):
+    get_buttons(message)
 
 
 @bot.message_handler(content_types=['text'])
-def get_text_messages(message):
-    if message.text == "/start":
-        bot.send_message(message.from_user.id, START_TEXT)
-    elif message.text == "/help":
-        bot.send_message(message.from_user.id, HELP_TEXT)
-    elif message.text == '/get':
-        if name == '':
-            bot.send_message(message.from_user.id, GET_TEXT)
-            bot.register_next_step_handler(message, get_name)
-        else:
-            bot.register_next_step_handler(message, get_name)
+def process(message):
+    if message.text == FIRST_REQ:
+        bot.send_message(message.from_user.id, 'Ты мой хороший :)', reply_markup=types.ReplyKeyboardRemove())
+    elif message.text == SECOND_REQ:
+        bot.send_message(message.from_user.id, 'И так бывает(', reply_markup=types.ReplyKeyboardRemove())
     elif message.text == "echo":
         bot.send_message(message.from_user.id, ECHO_TEXT)
     else:
         bot.send_message(message.from_user.id, ANOTHER_TEXT)
 
 
-@bot.callback_query_handler(func=lambda call: True)
-def callback_worker(call):
-    global age
-    if call.data == "yes": #call.data это callback_data, которую мы указали при объявлении кнопки
-        age = 10
-        bot.send_message(call.message.chat.id, 'Запомню : )')
-    elif call.data == "no":
-        bot.send_message(call.message.from_user.id, "Начнем с начала. Как тебя называть?")
-        bot.register_next_step_handler(call.message, get_name)  # следующий шаг – функция get_name
+# @bot.callback_query_handler(func=lambda call: True)
+# def callback_worker(call):
+#     global age
+#     if call.data == "Ухожу в питон!":
+#         bot.send_message(call.message.chat.id, 'Запомню : )', reply_markup=types.ReplyKeyboardRemove())
+#     elif call.data == "Остаюсь с c++(":
+#         bot.send_message(call.message.chat.id, "Начнем с начала. Как тебя называть?",
+#                          reply_markup=types.ReplyKeyboardRemove())
+#         bot.register_next_step_handler(call.message, get_name)
 
 
-def get_name(message):
-    global name
-    name = message.text
-    bot.send_message(message.from_user.id, 'Что тебе нужно от бота?')
-    bot.register_next_step_handler(message, get_age)
-
-
-def get_age(message):
-    global age
-    while age == 0: #проверяем что возраст изменился
-        try:
-             age = int(message.text) #проверяем, что возраст введен корректно
-        except Exception:
-            bot.send_message(message.from_user.id, 'Цифрами, пожалуйста')
-    keyboard = types.InlineKeyboardMarkup() #наша клавиатура
-    key_yes = types.InlineKeyboardButton(text='Да', callback_data='yes') #кнопка «Да»
-    keyboard.add(key_yes) #добавляем кнопку в клавиатуру
-    key_no = types.InlineKeyboardButton(text='Нет', callback_data='no')
-    keyboard.add(key_no)
-    question = 'Тебе '+str(age)+' лет, тебя зовут '+name+' '+surname+'?'
-    bot.send_message(message.from_user.id, text=question, reply_markup=keyboard)
+def get_buttons(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1 = types.KeyboardButton("Ухожу в питон!")
+    btn2 = types.KeyboardButton("Остаюсь с c++(")
+    markup.add(btn1, btn2)
+    bot.send_message(message.from_user.id, 'Какой язык выберешь?', reply_markup=markup)
 
 
 bot.polling(none_stop=True, interval=0)
