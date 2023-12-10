@@ -41,14 +41,14 @@ def my_get(message):
 
 last_function = ''
 last_filename = ''
-columns = []
-time_for_do = ''
+last_columns = []
+last_times = ''
 type_doing = 1
 
 
 @bot.message_handler(content_types=['text'])
 def process(message):
-    global last_function, type_doing, last_filename, columns, time_for_do
+    global last_function, type_doing, last_filename, last_columns, last_times
 
     if message.text in text.ALL_FUNCTIONS:
         bot.send_message(message.from_user.id, 'Вы выбрали функцию ' + message.text,
@@ -59,7 +59,7 @@ def process(message):
     elif message.text in text.ALL_FILENAMES:
         bot.send_message(message.from_user.id, 'Вы выбрали функцию ' + last_function + ' для файла ' + message.text,
                          reply_markup=types.ReplyKeyboardRemove())
-        bot.send_message(message.from_user.id, 'Введите номера столбцов обработки через пробел - целые неотрицательные числа')
+        bot.send_message(message.from_user.id, text.INPUT_VALUES)
         last_filename = message.text
         type_doing = 3
     elif type_doing == 3:
@@ -68,41 +68,53 @@ def process(message):
             try:
                 mass[i] = int(mass[i])
                 if mass[i] < 0:
-                    bot.send_message(message.from_user.id, 'Одно из введенных чисел - отрицательное, повторите ввод')
+                    bot.send_message(message.from_user.id, text.NEGATIVE_ERROR)
                     return
             except Exception:
-                bot.send_message(message.from_user.id, 'Формат ввода неверный, повторите ввод')
+                bot.send_message(message.from_user.id, text.INPUT_ERROR)
                 return
-        bot.send_message(message.from_user.id, 'Вы выбрали ' + last_function + ', файл ' + last_filename + ', параметры ('
-                         + ', '.join([str(x) for x in mass]) + ')', reply_markup=types.ReplyKeyboardRemove())
-        bot.send_message(message.from_user.id, 'Теперь введите время запроса в формате HH:MM')
-        columns = mass
+        bot.send_message(message.from_user.id, 'Вы выбрали ' + last_function + ', файл ' + last_filename
+                         + ', параметры (' + ', '.join([str(x) for x in mass]) + ')',
+                         reply_markup=types.ReplyKeyboardRemove())
+        if last_function == text.FOURTH_FUNCTION:
+            bot.send_message(message.from_user.id, text.INPUT_TIME)
+        else:
+            bot.send_message(message.from_user.id, text.INPUT_TIMES)
+        last_columns = mass
         type_doing = 4
     elif type_doing == 4:
         try:
-            mass = message.text.split(':')
+            arr = message.text.split()
 
-            if len(mass[0]) != 2 or len(mass[1]) != 2 or len(mass) != 2:
-                bot.send_message(message.from_user.id, 'Формат ввода неверный, повторите ввод')
+            if ((last_function == text.FOURTH_FUNCTION and len(arr) != 1) or
+                    (last_function != text.FOURTH_FUNCTION and len(arr) != 2)):
+                bot.send_message(message.from_user.id, text.INPUT_ERROR)
                 return
 
-            mass[0] = int(mass[0])
-            if mass[0] < 0 or mass[0] > 23:
-                bot.send_message(message.from_user.id, 'Ошибка в вводе часов, повторите ввод')
-                return
+            for i in range(len(arr)):
+                mass = arr[i].split(':')
 
-            mass[1] = int(mass[1])
-            if mass[1] < 0 or mass[1] > 59:
-                bot.send_message(message.from_user.id, 'Ошибка в вводе минут, повторите ввод')
-                return
+                if len(mass[0]) != 2 or len(mass[1]) != 2 or len(mass) != 2:
+                    bot.send_message(message.from_user.id, text.INPUT_ERROR)
+                    return
+
+                mass[0] = int(mass[0])
+                if mass[0] < 0 or mass[0] > 23:
+                    bot.send_message(message.from_user.id, text.HOUR_ERROR)
+                    return
+
+                mass[1] = int(mass[1])
+                if mass[1] < 0 or mass[1] > 59:
+                    bot.send_message(message.from_user.id, text.MINUTE_ERROR)
+                    return
         except Exception:
-            bot.send_message(message.from_user.id, 'Формат ввода неверный, повторите ввод')
+            bot.send_message(message.from_user.id, text.INPUT_ERROR)
             return
 
         bot.send_message(message.from_user.id, 'Функция ' + last_function + ', файл ' + last_filename + ', параметры ('
-                         + ', '.join([str(x) for x in columns]) + '), время ' + message.text,
+                         + ', '.join([str(x) for x in last_columns]) + '), время "' + message.text + '"',
                          reply_markup=types.ReplyKeyboardRemove())
-        time_for_do = message.text
+        last_times = message.text
         type_doing = 1
     else:
         bot.send_message(message.from_user.id, text.ANOTHER_TEXT)
