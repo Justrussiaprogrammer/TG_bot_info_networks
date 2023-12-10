@@ -7,11 +7,19 @@ HELP_TEXT = ("/start - вводное сообщение\n"
 ECHO_TEXT = "Эхо вернулось!"
 ANOTHER_TEXT = "Ты написал что-то не то, но сервер пашет! Напиши /help"
 
-FIRST_FUNCTION = 'Ухожу в питон!'
-SECOND_FUNCTION = 'Остаюсь с c++('
+
+GET_FUNCTION_TEXT = 'Какую информацию об обучении нейросетей нужно получить?'
+GET_FILENAME_TEXT = 'Из какого файла брать нейросеть?'
+
+FIRST_FUNCTION = 'min'
+SECOND_FUNCTION = 'max'
+THIRD_FUNCTION = 'plot'
+FOURTH_FUNCTION = 'value'
+ALL_FUNCTIONS = [FIRST_FUNCTION, SECOND_FUNCTION, THIRD_FUNCTION, FOURTH_FUNCTION]
 
 FIRST_FILENAME = 'train1.csv'
 SECOND_FILENAME = 'train2.csv'
 THIRD_FILENAME = 'train3.csv'
 FOURTH_FILENAME = 'train4.csv'
 FIFTH_FILENAME = 'train5.csv'
+ALL_FILENAMES = [FIRST_FILENAME, SECOND_FILENAME, THIRD_FILENAME, FOURTH_FILENAME, FIFTH_FILENAME]
