@@ -9,60 +9,60 @@ bot = telebot.TeleBot(config.token)
 
 @bot.message_handler(commands=['start'])
 def my_start(message):
-    global type_doing
+    global status_get
 
     bot.send_message(message.from_user.id, text.START_TEXT, reply_markup=types.ReplyKeyboardRemove())
-    type_doing = 1
+    status_get = 1
 
 
 @bot.message_handler(commands=['help'])
 def my_help(message):
-    global type_doing
+    global status_get
 
     bot.send_message(message.from_user.id, text.HELP_TEXT, reply_markup=types.ReplyKeyboardRemove())
-    type_doing = 1
+    status_get = 1
 
 
 @bot.message_handler(commands=['echo'])
 def my_help(message):
-    global type_doing
+    global status_get
 
     bot.send_message(message.from_user.id, text.ECHO_TEXT, reply_markup=types.ReplyKeyboardRemove())
-    type_doing = 1
+    status_get = 1
 
 
 @bot.message_handler(commands=['get'])
 def my_get(message):
-    global type_doing
+    global status_get
 
     get_types_functions(message)
-    type_doing = 1
+    status_get = 1
 
 
 last_function = ''
 last_filename = ''
 last_columns = []
 last_times = ''
-type_doing = 1
+status_get = 1
 
 
 @bot.message_handler(content_types=['text'])
 def process(message):
-    global last_function, type_doing, last_filename, last_columns, last_times
+    global last_function, status_get, last_filename, last_columns, last_times
 
     if message.text in text.ALL_FUNCTIONS:
         bot.send_message(message.from_user.id, 'Вы выбрали функцию ' + message.text,
                          reply_markup=types.ReplyKeyboardRemove())
         last_function = message.text
         get_filename(message)
-        type_doing = 2
+        status_get = 2
     elif message.text in text.ALL_FILENAMES:
         bot.send_message(message.from_user.id, 'Вы выбрали функцию ' + last_function + ' для файла ' + message.text,
                          reply_markup=types.ReplyKeyboardRemove())
         bot.send_message(message.from_user.id, text.INPUT_VALUES)
         last_filename = message.text
-        type_doing = 3
-    elif type_doing == 3:
+        status_get = 3
+    elif status_get == 3:
         mass = message.text.split()
         for i in range(len(mass)):
             try:
@@ -81,8 +81,8 @@ def process(message):
         else:
             bot.send_message(message.from_user.id, text.INPUT_TIMES)
         last_columns = mass
-        type_doing = 4
-    elif type_doing == 4:
+        status_get = 4
+    elif status_get == 4:
         try:
             arr = message.text.split()
 
@@ -114,8 +114,21 @@ def process(message):
         bot.send_message(message.from_user.id, 'Функция ' + last_function + ', файл ' + last_filename + ', параметры ('
                          + ', '.join([str(x) for x in last_columns]) + '), время "' + message.text + '"',
                          reply_markup=types.ReplyKeyboardRemove())
-        last_times = message.text
-        type_doing = 1
+        last_times = message.text.split()
+
+        ##############################################################################################
+        # Здесь получаем значения функции
+        #
+        # answer = get_answer(last_function, last_filename, last_columns, last_times)
+        ##############################################################################################
+
+        f1 = open("/Users/htotu/PycharmProjects/TG_bot_info_networks/archive/sample.pdf", "rb")
+        f2 = open("/Users/htotu/PycharmProjects/TG_bot_info_networks/archive/sample.jpeg", "rb")
+
+        bot.send_document(message.chat.id, f1)
+        bot.send_document(message.chat.id, f2)
+
+        status_get = 1
     else:
         bot.send_message(message.from_user.id, text.ANOTHER_TEXT)
 
