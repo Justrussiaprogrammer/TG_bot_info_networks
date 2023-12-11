@@ -5,8 +5,9 @@ import text
 
 
 def my_plot(df_period, parameter):
-    for p in parameter:
-        plt.plot(df_period.index, df_period[p], label=p)
+    plt.figure(figsize=(10, 5))
+    for p in range(parameter):
+        plt.plot(df_period['time'], df_period[df_period.columns[p+1]], label=df_period.columns[p+1])
     plt.xlabel('Index')
     plt.ylabel('Value')
     plt.title('Graph of columns')
@@ -41,7 +42,7 @@ def function(query, file_name, parameter, time_period):
                 d[df.columns[i]] = ans[i - 1]
             return d
         elif query == 'plot':
-            my_plot(df_period, parameter)
+            my_plot(df_period, len(parameter))
     elif len(time_period) == 1:
         df_2 = df[df[df.columns[0]] == time_period[0]]
         d = {}
