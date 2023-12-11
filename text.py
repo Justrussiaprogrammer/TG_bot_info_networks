@@ -33,3 +33,5 @@ THIRD_FILENAME = 'train3.csv'
 FOURTH_FILENAME = 'train4.csv'
 FIFTH_FILENAME = 'train5.csv'
 ALL_FILENAMES = [FIRST_FILENAME, SECOND_FILENAME, THIRD_FILENAME, FOURTH_FILENAME, FIFTH_FILENAME]
+
+URL = 'https://github.com/Justrussiaprogrammer/TG_bot_info_networks/raw/main/archive/'

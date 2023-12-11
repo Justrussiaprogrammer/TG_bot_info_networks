@@ -1,4 +1,5 @@
 import config
+import functions
 import telebot
 from telebot import types
 import text
@@ -116,11 +117,8 @@ def process(message):
                          reply_markup=types.ReplyKeyboardRemove())
         last_times = message.text.split()
 
-        ##############################################################################################
-        # Здесь получаем значения функции
-        #
-        # answer = get_answer(last_function, last_filename, last_columns, last_times)
-        ##############################################################################################
+        answer = functions.function(last_function, last_filename, last_columns, last_times)
+        bot.send_message(message.from_user.id, str(answer))
 
         f1 = open("/Users/htotu/PycharmProjects/TG_bot_info_networks/archive/sample.pdf", "rb")
         f2 = open("/Users/htotu/PycharmProjects/TG_bot_info_networks/archive/sample.jpeg", "rb")
