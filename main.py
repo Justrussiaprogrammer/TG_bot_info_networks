@@ -120,11 +120,11 @@ def process(message):
         answer = functions.function(last_function, last_filename, last_columns, last_times)
         bot.send_message(message.from_user.id, str(answer))
 
-        f1 = open("/Users/htotu/PycharmProjects/TG_bot_info_networks/archive/sample.pdf", "rb")
-        f2 = open("/Users/htotu/PycharmProjects/TG_bot_info_networks/archive/sample.jpeg", "rb")
-
-        bot.send_document(message.chat.id, f1)
-        bot.send_document(message.chat.id, f2)
+        # f1 = open("/Users/htotu/PycharmProjects/TG_bot_info_networks/archive/sample.pdf", "rb")
+        # f2 = open("/Users/htotu/PycharmProjects/TG_bot_info_networks/archive/sample.jpeg", "rb")
+        #
+        # bot.send_document(message.chat.id, f1)
+        # bot.send_document(message.chat.id, f2)
 
         status_get = 1
     else:
