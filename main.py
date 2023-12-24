@@ -68,24 +68,39 @@ def process(message):
         status_get = 3
     elif status_get == 3:
         try:
+            final_mass = list()
             mass = message.text.split(',')
             for i in range(len(mass)):
-                mass[i] = int(mass[i])
-                if mass[i] < 0:
+                mass[i] = ''.join(mass[i])
+                if '-' not in mass[i]:
+                    final_mass.append(int(mass[i]))
+                elif mass[i][0] == '-' and mass[i].count('-') == 1:
                     bot.send_message(message.from_user.id, text.NEGATIVE_ERROR)
                     return
+                elif mass[i].count('-') > 1:
+                    bot.send_message(message.from_user.id, text.INPUT_ERROR)
+                    return
+                else:
+                    borders = mass[i].split('-')
+                    if len(borders) == 1:
+                        bot.send_message(message.from_user.id, text.INPUT_ERROR)
+                        return
+                    left, right = borders
+                    left = int(''.join(left.split()))
+                    right = int(''.join(right.split()))
+                    final_mass.extend(list(range(left, right + 1)))
         except Exception:
             bot.send_message(message.from_user.id, text.INPUT_ERROR)
             return
 
         bot.send_message(message.from_user.id, 'Вы выбрали ' + last_function + ', файл ' + last_filename
-                         + ', параметры (' + ', '.join([str(x) for x in mass]) + ')',
+                         + ', параметры (' + ', '.join([str(x) for x in final_mass]) + ')',
                          reply_markup=types.ReplyKeyboardRemove())
         if last_function == text.VALUE_FUNCTION:
             bot.send_message(message.from_user.id, text.INPUT_TIME)
         else:
             bot.send_message(message.from_user.id, text.INPUT_TIMES)
-        last_columns = mass
+        last_columns = final_mass
         status_get = 4
     elif status_get == 4:
         try:
