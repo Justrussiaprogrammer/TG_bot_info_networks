@@ -20,7 +20,7 @@ NEGATIVE_ERROR = 'Одно из введенных чисел - отрицате
 HOUR_ERROR = 'Ошибка в вводе часов, повторите ввод'
 MINUTE_ERROR = 'Ошибка в вводе минут, повторите ввод'
 INPUT_ERROR = 'Формат ввода неверный, повторите ввод'
-QUERY_ERROR = 'Invalid query, try again :)'
+QUERY_ERROR = 'Неправильный ввод, попробуйте еще раз :)'
 
 FIRST_FUNCTION = 'min'
 SECOND_FUNCTION = 'max'

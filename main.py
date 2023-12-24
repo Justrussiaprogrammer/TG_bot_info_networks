@@ -151,7 +151,7 @@ def process(message):
         # except Exception:
         #     bot.send_message(message.from_user.id, "Что-то пошло нет так")
 
-        if last_function == 'plot':
+        if last_function == 'plot' and answer != text.QUERY_ERROR:
             f_for_out = open("./plot_image.jpg", "rb")
             bot.send_document(message.chat.id, f_for_out)
             f_for_out.close()
