@@ -15,6 +15,7 @@ def my_plot(df_period, parameter):
     plt.legend()
     plt.savefig('plot_image.jpg')
     plt.show()
+    return "Ваш график:"
 
 
 def function(query, file_name, parameter, time_period):
