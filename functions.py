@@ -22,6 +22,7 @@ def my_plot(df_period, parameter):
 def function(query, file_name, parameter, time_period):
     df = pd.read_csv(text.URL + file_name)
     columns = df.columns
+    parameter = list(set([x for x in parameter if x < len(columns)]))
     time_period[0] = datetime.strptime(time_period[0], '%H:%M')
     df[columns[0]] = pd.to_datetime(df[columns[0]], format='%H:%M')
     mas = [columns[0]] + [columns[i] for i in parameter]
