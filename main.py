@@ -145,7 +145,7 @@ def process(message):
         answer = functions.function(last_function, last_filename, last_columns, last_times)
         bot.send_message(message.from_user.id, str(answer))
 
-        if last_function == 'plot' and answer != text.QUERY_ERROR:
+        if last_function == text.PLOT_FUNCTION and answer != text.QUERY_ERROR:
             f_for_out = open("./plot_image.jpg", "rb")
             bot.send_document(message.chat.id, f_for_out)
             f_for_out.close()
