@@ -162,7 +162,10 @@ def get_types_functions(message):
     btn2 = types.KeyboardButton(text.SECOND_FUNCTION)
     btn3 = types.KeyboardButton(text.THIRD_FUNCTION)
     btn4 = types.KeyboardButton(text.FOURTH_FUNCTION)
-    markup.add(btn1, btn2, btn3, btn4)
+    btn5 = types.KeyboardButton(text.FIFTH_FUNCTION)
+    btn6 = types.KeyboardButton(text.SIXTH_FUNCTION)
+    btn7 = types.KeyboardButton(text.SEVENTH_FUNCTION)
+    markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
     bot.send_message(message.from_user.id, text.GET_FUNCTION_TEXT, reply_markup=markup)
 
 
@@ -181,4 +184,4 @@ bot.polling(none_stop=True)
 
 
 if __name__ == '__main__':
-    process()
+    print("The end")
