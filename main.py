@@ -186,7 +186,8 @@ def get_types_functions(message):
     btn5 = types.KeyboardButton(text.MEAN_FUNCTION)
     btn6 = types.KeyboardButton(text.DEVIATION_FUNCTION)
     btn7 = types.KeyboardButton(text.VARIANCE_FUNCTION)
-    markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
+    btn8 = types.KeyboardButton(text.GET_INFO_FUNCTION)
+    markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8)
     bot.send_message(message.from_user.id, text.GET_FUNCTION_TEXT, reply_markup=markup)
 
 
