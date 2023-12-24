@@ -1,3 +1,7 @@
+import pandas as pd
+import text
+
+
 class PdInf:
     def __init__(self, df):
         self.df = df
@@ -13,6 +17,7 @@ class PdInf:
                 f"Тип данных: {data_types}")
 
 
-def get_info(df):
+def get_info(file_name):
+    df = pd.read_csv(text.URL + file_name)
     info_printer = PdInf(df)
     info_printer.display_info()

@@ -2,7 +2,6 @@
 from datetime import datetime
 import matplotlib.pyplot as plt
 import pandas as pd
-import pd_info
 import text
 
 
