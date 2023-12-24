@@ -62,7 +62,8 @@ def process(message):
         status_get = 2
     elif message.text in text.ALL_FILENAMES:
         if last_function == text.GET_INFO_FUNCTION:
-            bot.send_message(message.from_user.id, pd_info.get_info(message.text))
+            bot.send_message(message.from_user.id, message.text)
+            bot.send_message(message.from_user.id, str(pd_info.get_info(message.text)))
             status_get = 1
             return
 
@@ -74,7 +75,7 @@ def process(message):
     elif status_get == 3:
         try:
             final_mass = list()
-            mass = message.text.split(',')
+            mass = message.text.split()
             for i in range(len(mass)):
                 mass[i] = ''.join(mass[i])
                 if '-' not in mass[i]:
