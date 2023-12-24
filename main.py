@@ -3,7 +3,7 @@ import functions
 import telebot
 from telebot import types
 import text
-import io
+# import io
 # import numpy as np
 # import matplotlib.pyplot as plt
 
@@ -150,6 +150,10 @@ def process(message):
         #     bot.send_document(message.chat.id, buf)
         # except Exception:
         #     bot.send_message(message.from_user.id, "Что-то пошло нет так")
+
+        f_for_out = open("/Users/htotu/PycharmProjects/TG_bot_info_networks/archive/sample.jpg", "rb")
+        bot.send_document(message.chat.id, f_for_out)
+        f_for_out.close()
 
         status_get = 1
     else:
