@@ -8,7 +8,7 @@ import text
 def my_plot(df_period, parameter):
     plt.figure(figsize=(10, 5))
     for p in range(parameter):
-        plt.plot(df_period['time'], df_period[df_period.columns[p+1]], label=df_period.columns[p+1])
+        plt.plot(df_period['time'], df_period[df_period.columns[p + 1]], label=df_period.columns[p + 1])
     plt.xlabel('Index')
     plt.ylabel('Value')
     plt.title('Graph of columns')
@@ -22,7 +22,8 @@ def function(query, file_name, parameter, time_period):
     columns = df.columns
     parameter = list(set([x for x in parameter if x < len(columns)]))
     if len(parameter) == 0:
-        return 'Invalid query, try again :)'
+        return text.QUERY_ERROR
+
     time_period[0] = datetime.strptime(time_period[0], '%H:%M')
     df[columns[0]] = pd.to_datetime(df[columns[0]], format='%H:%M')
     mas = [columns[0]] + [columns[i] for i in parameter]
@@ -54,4 +55,4 @@ def function(query, file_name, parameter, time_period):
         df_period = df_period.drop(columns=['time'])
         return dict(zip([columns[i] for i in parameter], [x for x in df_period.iloc[0]]))
     else:
-        return 'Invalid query, try again :)'
+        return text.QUERY_ERROR
