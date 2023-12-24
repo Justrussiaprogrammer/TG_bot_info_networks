@@ -1,9 +1,8 @@
 import config
 import functions
+import pd_info
 import telebot
 from telebot import types
-
-import pd_info
 import text
 # import io
 
@@ -17,6 +16,7 @@ def my_start(message):
 
     f = open("./archive/new_year_spirit.jpg", "rb")
     bot.send_document(message.chat.id, f)
+    f.close()
     bot.send_message(message.from_user.id, text.START_TEXT, reply_markup=types.ReplyKeyboardRemove())
     status_get = 1
 
@@ -56,13 +56,16 @@ status_get = 1
 def process(message):
     global last_function, status_get, last_filename, last_columns, last_times
 
-    if message.text in text.ALL_FUNCTIONS:
+    if message.text in text.ALL_FUNCTIONS and status_get == 1:
         bot.send_message(message.from_user.id, 'Вы выбрали функцию ' + message.text + ' 🙂',
                          reply_markup=types.ReplyKeyboardRemove())
         last_function = message.text
         get_filename(message)
         status_get = 2
-    elif message.text in text.ALL_FILENAMES:
+    elif message.text in text.ALL_FILENAMES and status_get == 2:
+        if message.text == text.GET_BACK:
+            my_get(message)
+            return
         if last_function == text.GET_INFO_FUNCTION:
             bot.send_message(message.from_user.id, message.text)
             bot.send_message(message.from_user.id, str(pd_info.get_info(message.text)))
@@ -71,13 +74,18 @@ def process(message):
 
         bot.send_message(message.from_user.id, 'Вы выбрали функцию ' + last_function + ' для файла ' + message.text +
                          ' 🙃', reply_markup=types.ReplyKeyboardRemove())
-        bot.send_message(message.from_user.id, text.INPUT_VALUES)
         last_filename = message.text
+        check_step_back(message, text.INPUT_VALUES)
         status_get = 3
     elif status_get == 3:
+        if message.text == text.GET_BACK:
+            get_filename(message)
+            status_get = 2
+            return
+
         try:
             final_mass = list()
-            mass = message.text.split()
+            mass = message.text.split(',')
             for i in range(len(mass)):
                 mass[i] = ''.join(mass[i])
                 if '-' not in mass[i]:
@@ -105,12 +113,17 @@ def process(message):
                          + ', параметры (' + ', '.join([str(x) for x in final_mass]) + ')' + ' 😉',
                          reply_markup=types.ReplyKeyboardRemove())
         if last_function == text.VALUE_FUNCTION:
-            bot.send_message(message.from_user.id, text.INPUT_TIME)
+            check_step_back(message, text.INPUT_TIME)
         else:
-            bot.send_message(message.from_user.id, text.INPUT_TIMES)
+            check_step_back(message, text.INPUT_TIMES)
         last_columns = final_mass
         status_get = 4
     elif status_get == 4:
+        if message.text == text.GET_BACK:
+            bot.send_message(message.from_user.id, text.INPUT_VALUES)
+            status_get = 3
+            return
+
         try:
             arr = message.text.split()
 
@@ -179,8 +192,16 @@ def get_filename(message):
     btn3 = types.KeyboardButton(text.THIRD_FILENAME)
     btn4 = types.KeyboardButton(text.FOURTH_FILENAME)
     btn5 = types.KeyboardButton(text.FIFTH_FILENAME)
-    markup.add(btn1, btn2, btn3, btn4, btn5)
+    btn6 = types.KeyboardButton(text.GET_BACK)
+    markup.add(btn1, btn2, btn3, btn4, btn5, btn6)
     bot.send_message(message.from_user.id, text.GET_FILENAME_TEXT, reply_markup=markup)
+
+
+def check_step_back(message, text_for_keyboard):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1 = types.KeyboardButton(text.GET_BACK)
+    markup.add(btn1)
+    bot.send_message(message.from_user.id, text_for_keyboard, reply_markup=markup)
 
 
 bot.polling(none_stop=True)

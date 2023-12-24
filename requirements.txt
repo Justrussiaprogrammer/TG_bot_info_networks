@@ -1,0 +1,7 @@
+Необходимые библиотеки для запуска бота:
+
+from datetime import datetime
+import matplotlib.pyplot as plt
+import pandas as pd
+import telebot
+from telebot import types

@@ -27,6 +27,8 @@ MINUTE_ERROR = 'Ошибка в вводе минут, повторите вво
 INPUT_ERROR = 'Формат ввода неверный, повторите ввод'
 QUERY_ERROR = 'Неправильный ввод, попробуйте еще раз :)'
 
+GET_BACK = 'Предыдущий шаг'
+
 MIN_FUNCTION = 'минимум'
 MAX_FUNCTION = 'максимум'
 PLOT_FUNCTION = 'график'
@@ -44,6 +46,6 @@ SECOND_FILENAME = 'train2.csv'
 THIRD_FILENAME = 'train3.csv'
 FOURTH_FILENAME = 'train4.csv'
 FIFTH_FILENAME = 'train5.csv'
-ALL_FILENAMES = [FIRST_FILENAME, SECOND_FILENAME, THIRD_FILENAME, FOURTH_FILENAME, FIFTH_FILENAME]
+ALL_FILENAMES = [FIRST_FILENAME, SECOND_FILENAME, THIRD_FILENAME, FOURTH_FILENAME, FIFTH_FILENAME, GET_BACK]
 
-URL = 'https://github.com/Justrussiaprogrammer/TG_bot_info_networks/raw/main/archive/'
+URL = './archive/'
