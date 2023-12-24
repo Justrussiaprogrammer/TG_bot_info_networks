@@ -151,7 +151,7 @@ def process(message):
         # except Exception:
         #     bot.send_message(message.from_user.id, "Что-то пошло нет так")
 
-        f_for_out = open("/Users/htotu/PycharmProjects/TG_bot_info_networks/archive/sample.jpg", "rb")
+        f_for_out = open("/Users/htotu/PycharmProjects/TG_bot_info_networks/archive/plot_image.jpg", "rb")
         bot.send_document(message.chat.id, f_for_out)
         f_for_out.close()
 
