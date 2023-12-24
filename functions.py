@@ -54,6 +54,9 @@ def function(query, file_name, parameter, time_period):
         elif query == text.VARIANCE_FUNCTION:
             df_period = df_period.drop(columns=['time'])
             return dict(zip([columns[i] for i in parameter], [x for x in df_period.var()]))
+        elif query == text.MEDIAN_FUNCTION:
+            df_period = df_period.drop(columns=['time'])
+            return dict(zip([columns[i] for i in parameter], [x for x in df_period.median()]))
     elif len(time_period) == 1:
         df_period = df[df[columns[0]] == time_period[0]]
         df_period = df_period.drop(columns=['time'])
