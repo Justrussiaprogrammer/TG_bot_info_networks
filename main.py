@@ -61,7 +61,7 @@ def process(message):
         get_filename(message)
         status_get = 2
     elif message.text in text.ALL_FILENAMES:
-        if message.text == text.GET_INFO_FUNCTION:
+        if last_function == text.GET_INFO_FUNCTION:
             bot.send_message(message.from_user.id, pd_info.get_info(message.text))
             status_get = 1
             return
