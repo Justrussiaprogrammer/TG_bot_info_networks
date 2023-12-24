@@ -15,6 +15,8 @@ bot = telebot.TeleBot(config.token)
 def my_start(message):
     global status_get
 
+    f = open("./archive/new_year_spirit.jpg", "rb")
+    bot.send_document(message.chat.id, f)
     bot.send_message(message.from_user.id, text.START_TEXT, reply_markup=types.ReplyKeyboardRemove())
     status_get = 1
 
