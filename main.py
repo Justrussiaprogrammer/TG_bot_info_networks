@@ -69,8 +69,8 @@ def process(message):
             status_get = 1
             return
 
-        bot.send_message(message.from_user.id, 'Вы выбрали функцию ' + last_function + ' для файла ' + message.text + ' 🙃',
-                         reply_markup=types.ReplyKeyboardRemove())
+        bot.send_message(message.from_user.id, 'Вы выбрали функцию ' + last_function + ' для файла ' + message.text +
+                         ' 🙃', reply_markup=types.ReplyKeyboardRemove())
         bot.send_message(message.from_user.id, text.INPUT_VALUES)
         last_filename = message.text
         status_get = 3
