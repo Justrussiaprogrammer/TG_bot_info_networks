@@ -145,34 +145,6 @@ def process(message):
         answer = functions.function(last_function, last_filename, last_columns, last_times)
         bot.send_message(message.from_user.id, str(answer))
 
-        # f1 = open("/Users/htotu/PycharmProjects/TG_bot_info_networks/archive/sample.pdf", "rb")
-        # f2 = open("/Users/htotu/PycharmProjects/TG_bot_info_networks/archive/sample.jpeg", "rb")
-        #
-        # bot.send_document(message.chat.id, f1)
-        # bot.send_document(message.chat.id, f2)
-
-        # try:
-        #     x = np.linspace(0, 10, 10)
-        #     y = np.linspace(0, 10, 10)
-        #     plt.plot(x, y)
-        #
-        #     figfile = io.BytesIO()
-        #     plt.savefig(figfile, format='png')
-        #
-        #     buf = io.BytesIO()
-        #
-        #     # extract csv-string, convert it to bytes and write to buffer
-        #     buf.write(figfile.getvalue().encode())
-        #     buf.seek(0)
-        #
-        #     # set a filename with file's extension
-        #     buf.name = f'secret_report_for_cool_guys.csv'
-        #
-        #     # send the buffer as a regular file
-        #     bot.send_document(message.chat.id, buf)
-        # except Exception:
-        #     bot.send_message(message.from_user.id, "Что-то пошло нет так")
-
         if last_function == 'plot' and answer != text.QUERY_ERROR:
             f_for_out = open("./plot_image.jpg", "rb")
             bot.send_document(message.chat.id, f_for_out)
