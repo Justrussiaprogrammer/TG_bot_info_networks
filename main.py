@@ -3,6 +3,9 @@ import functions
 import telebot
 from telebot import types
 import text
+import io
+# import numpy as np
+# import matplotlib.pyplot as plt
 
 
 bot = telebot.TeleBot(config.token)
@@ -126,6 +129,28 @@ def process(message):
         # bot.send_document(message.chat.id, f1)
         # bot.send_document(message.chat.id, f2)
 
+        # try:
+        #     x = np.linspace(0, 10, 10)
+        #     y = np.linspace(0, 10, 10)
+        #     plt.plot(x, y)
+        #
+        #     figfile = io.BytesIO()
+        #     plt.savefig(figfile, format='png')
+        #
+        #     buf = io.BytesIO()
+        #
+        #     # extract csv-string, convert it to bytes and write to buffer
+        #     buf.write(figfile.getvalue().encode())
+        #     buf.seek(0)
+        #
+        #     # set a filename with file's extension
+        #     buf.name = f'secret_report_for_cool_guys.csv'
+        #
+        #     # send the buffer as a regular file
+        #     bot.send_document(message.chat.id, buf)
+        # except Exception:
+        #     bot.send_message(message.from_user.id, "Что-то пошло нет так")
+
         status_get = 1
     else:
         bot.send_message(message.from_user.id, text.ANOTHER_TEXT)
@@ -153,3 +178,7 @@ def get_filename(message):
 
 
 bot.polling(none_stop=True)
+
+
+if __name__ == '__main__':
+    process()
