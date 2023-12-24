@@ -2,6 +2,8 @@ import config
 import functions
 import telebot
 from telebot import types
+
+import pd_info
 import text
 # import io
 
@@ -59,6 +61,11 @@ def process(message):
         get_filename(message)
         status_get = 2
     elif message.text in text.ALL_FILENAMES:
+        if message.text == text.GET_INFO_FUNCTION:
+            bot.send_message(message.from_user.id, pd_info.get_info(message.text))
+            status_get = 1
+            return
+
         bot.send_message(message.from_user.id, 'Вы выбрали функцию ' + last_function + ' для файла ' + message.text,
                          reply_markup=types.ReplyKeyboardRemove())
         bot.send_message(message.from_user.id, text.INPUT_VALUES)

@@ -1,4 +1,4 @@
-import io
+# import io
 from datetime import datetime
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -23,10 +23,7 @@ def function(query, file_name, parameter, time_period):
     columns = df.columns
     parameter = list(set([x for x in parameter if x < len(columns)]))
     if len(parameter) == 0:
-        if query == text.GET_INFO_FUNCTION:
-            pd_info.get_info(df)
-        else:
-            return text.QUERY_ERROR
+        return text.QUERY_ERROR
 
     time_period[0] = datetime.strptime(time_period[0], '%H:%M')
     df[columns[0]] = pd.to_datetime(df[columns[0]], format='%H:%M')
