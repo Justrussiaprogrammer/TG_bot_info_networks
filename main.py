@@ -55,7 +55,7 @@ def process(message):
     global last_function, status_get, last_filename, last_columns, last_times
 
     if message.text in text.ALL_FUNCTIONS:
-        bot.send_message(message.from_user.id, 'Вы выбрали функцию ' + message.text,
+        bot.send_message(message.from_user.id, 'Вы выбрали функцию ' + message.text + ' 🙂',
                          reply_markup=types.ReplyKeyboardRemove())
         last_function = message.text
         get_filename(message)
@@ -67,7 +67,7 @@ def process(message):
             status_get = 1
             return
 
-        bot.send_message(message.from_user.id, 'Вы выбрали функцию ' + last_function + ' для файла ' + message.text,
+        bot.send_message(message.from_user.id, 'Вы выбрали функцию ' + last_function + ' для файла ' + message.text + ' 🙃',
                          reply_markup=types.ReplyKeyboardRemove())
         bot.send_message(message.from_user.id, text.INPUT_VALUES)
         last_filename = message.text
@@ -100,7 +100,7 @@ def process(message):
             return
 
         bot.send_message(message.from_user.id, 'Вы выбрали ' + last_function + ', файл ' + last_filename
-                         + ', параметры (' + ', '.join([str(x) for x in final_mass]) + ')',
+                         + ', параметры (' + ', '.join([str(x) for x in final_mass]) + ')' + ' 😉',
                          reply_markup=types.ReplyKeyboardRemove())
         if last_function == text.VALUE_FUNCTION:
             bot.send_message(message.from_user.id, text.INPUT_TIME)
@@ -138,7 +138,7 @@ def process(message):
             return
 
         bot.send_message(message.from_user.id, 'Функция ' + last_function + ', файл ' + last_filename + ', параметры ('
-                         + ', '.join([str(x) for x in last_columns]) + '), время "' + message.text + '"',
+                         + ', '.join([str(x) for x in last_columns]) + '), время "' + message.text + '"' + ' 😊',
                          reply_markup=types.ReplyKeyboardRemove())
         last_times = message.text.split()
 
