@@ -14,7 +14,7 @@ def my_plot(df_period, parameter):
     plt.title('Graph of columns')
     plt.legend()
     plt.savefig('plot_image.jpg')
-    return "Ваш график:"
+    return text.SUCCESS_PLOT
 
 
 def function(query, file_name, parameter, time_period):
