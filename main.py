@@ -67,20 +67,21 @@ def process(message):
         last_filename = message.text
         status_get = 3
     elif status_get == 3:
-        mass = message.text.split()
-        for i in range(len(mass)):
-            try:
+        try:
+            mass = message.text.split(',')
+            for i in range(len(mass)):
                 mass[i] = int(mass[i])
                 if mass[i] < 0:
                     bot.send_message(message.from_user.id, text.NEGATIVE_ERROR)
                     return
-            except Exception:
-                bot.send_message(message.from_user.id, text.INPUT_ERROR)
-                return
+        except Exception:
+            bot.send_message(message.from_user.id, text.INPUT_ERROR)
+            return
+
         bot.send_message(message.from_user.id, 'Вы выбрали ' + last_function + ', файл ' + last_filename
                          + ', параметры (' + ', '.join([str(x) for x in mass]) + ')',
                          reply_markup=types.ReplyKeyboardRemove())
-        if last_function == text.FOURTH_FUNCTION:
+        if last_function == text.VALUE_FUNCTION:
             bot.send_message(message.from_user.id, text.INPUT_TIME)
         else:
             bot.send_message(message.from_user.id, text.INPUT_TIMES)
@@ -90,8 +91,8 @@ def process(message):
         try:
             arr = message.text.split()
 
-            if ((last_function == text.FOURTH_FUNCTION and len(arr) != 1) or
-                    (last_function != text.FOURTH_FUNCTION and len(arr) != 2)):
+            if ((last_function == text.VALUE_FUNCTION and len(arr) != 1) or
+                    (last_function != text.VALUE_FUNCTION and len(arr) != 2)):
                 bot.send_message(message.from_user.id, text.INPUT_ERROR)
                 return
 
@@ -163,13 +164,13 @@ def process(message):
 
 def get_types_functions(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn1 = types.KeyboardButton(text.FIRST_FUNCTION)
-    btn2 = types.KeyboardButton(text.SECOND_FUNCTION)
-    btn3 = types.KeyboardButton(text.THIRD_FUNCTION)
-    btn4 = types.KeyboardButton(text.FOURTH_FUNCTION)
-    btn5 = types.KeyboardButton(text.FIFTH_FUNCTION)
-    btn6 = types.KeyboardButton(text.SIXTH_FUNCTION)
-    btn7 = types.KeyboardButton(text.SEVENTH_FUNCTION)
+    btn1 = types.KeyboardButton(text.MIN_FUNCTION)
+    btn2 = types.KeyboardButton(text.MAX_FUNCTION)
+    btn3 = types.KeyboardButton(text.PLOT_FUNCTION)
+    btn4 = types.KeyboardButton(text.VALUE_FUNCTION)
+    btn5 = types.KeyboardButton(text.MEAN_FUNCTION)
+    btn6 = types.KeyboardButton(text.DEVIATION_FUNCTION)
+    btn7 = types.KeyboardButton(text.VARIANCE_FUNCTION)
     markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
     bot.send_message(message.from_user.id, text.GET_FUNCTION_TEXT, reply_markup=markup)
 

@@ -14,7 +14,6 @@ def my_plot(df_period, parameter):
     plt.title('Graph of columns')
     plt.legend()
     plt.savefig('plot_image.jpg')
-    plt.show()
     return "Ваш график:"
 
 
@@ -34,21 +33,21 @@ def function(query, file_name, parameter, time_period):
         if time_period[0] > time_period[1]:
             time_period[0], time_period[1] = time_period[1], time_period[0]
         df_period = df[(df[columns[0]] >= time_period[0]) & (df[columns[0]] <= time_period[1])]
-        if query == 'min':
+        if query == text.MIN_FUNCTION:
             df_period = df_period.drop(columns=['time'])
             return dict(zip([columns[i] for i in parameter], [x for x in df_period.min()]))
-        elif query == 'max':
+        elif query == text.MAX_FUNCTION:
             df_period = df_period.drop(columns=['time'])
             return dict(zip([columns[i] for i in parameter], [x for x in df_period.max()]))
-        elif query == 'plot':
+        elif query == text.PLOT_FUNCTION:
             return my_plot(df_period, len(parameter))
-        elif query == 'mean':
+        elif query == text.MEAN_FUNCTION:
             df_period = df_period.drop(columns=['time'])
             return dict(zip([columns[i] for i in parameter], [x for x in df_period.mean()]))
-        elif query == 'standard deviation':
+        elif query == text.DEVIATION_FUNCTION:
             df_period = df_period.drop(columns=['time'])
             return dict(zip([columns[i] for i in parameter], [x for x in df_period.std()]))
-        elif query == 'variance':
+        elif query == text.VARIANCE_FUNCTION:
             df_period = df_period.drop(columns=['time'])
             return dict(zip([columns[i] for i in parameter], [x for x in df_period.var()]))
     elif len(time_period) == 1:

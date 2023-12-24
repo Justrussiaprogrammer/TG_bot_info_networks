@@ -12,7 +12,7 @@ ANOTHER_TEXT = "Ты написал что-то не то, но сервер п�
 GET_FUNCTION_TEXT = 'Какую информацию об обучении нейросетей нужно получить?'
 GET_FILENAME_TEXT = 'Из какого файла брать нейросеть?'
 
-INPUT_VALUES = 'Введите номера столбцов обработки через пробел - целые неотрицательные числа'
+INPUT_VALUES = 'Введите номера столбцов обработки через запятую - целые неотрицательные числа'
 INPUT_TIME = 'Теперь введите период запроса в формате HH:MM'
 INPUT_TIMES = 'Теперь введите период запроса в формате "HH:MM HH:MM"'
 
@@ -22,15 +22,15 @@ MINUTE_ERROR = 'Ошибка в вводе минут, повторите вво
 INPUT_ERROR = 'Формат ввода неверный, повторите ввод'
 QUERY_ERROR = 'Неправильный ввод, попробуйте еще раз :)'
 
-FIRST_FUNCTION = 'min'
-SECOND_FUNCTION = 'max'
-THIRD_FUNCTION = 'plot'
-FOURTH_FUNCTION = 'value'
-FIFTH_FUNCTION = 'mean'
-SIXTH_FUNCTION = 'standard_deviation'
-SEVENTH_FUNCTION = 'variance'
-ALL_FUNCTIONS = [FIRST_FUNCTION, SECOND_FUNCTION, THIRD_FUNCTION, FOURTH_FUNCTION, FIFTH_FUNCTION, SIXTH_FUNCTION,
-                 SEVENTH_FUNCTION]
+MIN_FUNCTION = 'минимум'
+MAX_FUNCTION = 'максимум'
+PLOT_FUNCTION = 'график'
+VALUE_FUNCTION = 'значение'
+MEAN_FUNCTION = 'среднее'
+DEVIATION_FUNCTION = 'отклонение'
+VARIANCE_FUNCTION = 'дисперсия'
+ALL_FUNCTIONS = [MIN_FUNCTION, MAX_FUNCTION, PLOT_FUNCTION, VALUE_FUNCTION, MEAN_FUNCTION, DEVIATION_FUNCTION,
+                 VARIANCE_FUNCTION]
 
 FIRST_FILENAME = 'train1.csv'
 SECOND_FILENAME = 'train2.csv'
