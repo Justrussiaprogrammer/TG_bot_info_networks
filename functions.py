@@ -17,10 +17,10 @@ def my_plot(df_period, parameter):
     return text.SUCCESS_PLOT
 
 
-def function(query, file_name, parameter, time_period):
+def get_function_result(query, file_name, parameter, time_period):
     df = pd.read_csv(text.URL + file_name)
     columns = df.columns
-    parameter = list(set([x for x in parameter if x < len(columns)]))
+    parameter = list(set([x for x in parameter if len(columns) > x > 0]))
     if len(parameter) == 0:
         return text.QUERY_ERROR
 

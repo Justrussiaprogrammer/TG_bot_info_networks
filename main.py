@@ -157,7 +157,7 @@ def process(message):
                          reply_markup=types.ReplyKeyboardRemove())
         last_times = message.text.split()
 
-        answer = functions.function(last_function, last_filename, last_columns, last_times)
+        answer = functions.get_function_result(last_function, last_filename, last_columns, last_times)
         bot.send_message(message.from_user.id, str(answer))
 
         if last_function == text.PLOT_FUNCTION and answer != text.QUERY_ERROR:
