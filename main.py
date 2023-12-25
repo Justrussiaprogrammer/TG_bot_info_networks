@@ -89,7 +89,11 @@ def process(message):
             for i in range(len(mass)):
                 mass[i] = ''.join(mass[i])
                 if '-' not in mass[i]:
-                    final_mass.append(int(mass[i]))
+                    if int(mass[i]) != 0:
+                        final_mass.append(int(mass[i]))
+                    else:
+                        bot.send_message(message.from_user.id, text.INPUT_ERROR)
+                        return
                 elif mass[i][0] == '-' and mass[i].count('-') == 1:
                     bot.send_message(message.from_user.id, text.NEGATIVE_ERROR)
                     return
